@@ -9,7 +9,7 @@ export class AddBookService {
   constructor(private http: HttpClient) {}
 
   addBook(book: any): Observable<any> {
-    return this.http.post<any>("http://localhost:8080/books/create", book);
+    return this.http.post<any>("http://localhost:8080/book/create", book);
   }
 
 
