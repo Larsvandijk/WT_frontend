@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, output } from '@angular/core';
 import { ReservationDto } from '../../dto/ReadReservationDto';
 import { ReadUserDto } from '../../dto/ReadUserDto';
 import { ReadBookDto } from '../../dto/ReadBookDto';
@@ -20,6 +20,7 @@ export class ReservationComponent {
   @Input() reservation: ReservationDto | null = null;
   book: ReadBookDto | null = null;
   user: ReadUserDto | null = null;
+  onSave = output<void>();
 
   constructor(private bookService: BookService, private userService: UserService, private loanService: LoanService, private bookCopyService: BookCopyService, private reservationService: ReservationService) { }
 
@@ -65,8 +66,7 @@ export class ReservationComponent {
 
           this.loanService.createLoan(loanData).subscribe(response => {
             if (response.success) {
-              console.log('response', response);
-              alert("Lening aangemaakt")
+              alert("Lening aangemaakt");
             } else {
               alert(response.errors)
             }
@@ -77,12 +77,12 @@ export class ReservationComponent {
             this.reservation.reservationRequest = "ACCEPTED"
             this.reservationService.updateReservation(this.reservation).subscribe(response => {
               if (response.success) {
-                console.log('response', response);
               } else {
                 alert(response.errors);
               }
             });
           }
+          this.onSave.emit();
         } else {
           alert("Geen boek kopieën beschikbaar")
         }
@@ -96,7 +96,6 @@ export class ReservationComponent {
         this.reservation.reservationRequest = "DENIED"
         this.reservationService.updateReservation(this.reservation).subscribe(response => {
           if (response.success) {
-            console.log('response', response);
             alert("Aanvraag afgewezen")
           } else {
             alert(response.errors)

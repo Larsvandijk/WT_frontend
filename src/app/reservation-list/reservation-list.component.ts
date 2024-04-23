@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ReservationDto } from '../../dto/ReadReservationDto';
 import { ReservationService } from '../reservation.service';
 import { BookService } from '../book.service';
@@ -15,7 +15,7 @@ import { LoanComponent } from '../loan/loan.component';
   templateUrl: './reservation-list.component.html',
   styleUrl: './reservation-list.component.scss'
 })
-export class ReservationListComponent {
+export class ReservationListComponent implements OnInit {
 
   reservations = new Array<ReservationDto>();
   loans = new Array<LoanDto>();
@@ -38,4 +38,5 @@ export class ReservationListComponent {
       this.loans = resp.data;
     })
   }
+
 }

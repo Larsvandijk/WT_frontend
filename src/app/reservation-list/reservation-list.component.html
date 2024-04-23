@@ -12,11 +12,11 @@
         </thead>
         <tbody>
             <ng-container *ngFor="let reservation of reservations">
-                <tr *ngIf="reservation.reservationRequest === 'PENDING'" app-reservation [reservation]="reservation"></tr>
+                <tr *ngIf="reservation.reservationRequest === 'PENDING'" app-reservation [reservation]="reservation" (onSave)="loadLoans()"></tr>
             </ng-container>
         </tbody>
     </table>
-    
+
     <h2>Actieve leningen:</h2>
     <table class="table table-bordered">
         <thead>
